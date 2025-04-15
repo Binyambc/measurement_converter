@@ -1,39 +1,53 @@
 <div class="converter">
     <form action="" method="post">
         <label for="temprature">Fahrenheit</label>
-        <input type="number" name="fahrenheit" placeholder="Fahrenheit" required>
+        <input type="number" name="fahrenheit" placeholder="Fahrenheit">
         <br>
         <label for="speed">Speed</label>
-        <input type="number" name="kmh" placeholder="km/h" required>
+        <input type="number" name="kmh" placeholder="km/h">
         <br>
         <label for="mass">Mass</label>
-        <input type="number" name="kg" placeholder="kg" required>
+        <input type="number" name="kg" placeholder="kg">
 
     </form>
 
     <?php
-    $inputFahrenheit = $_POST["fahrenheit"];
-    $celcius = convertTemprature($inputFahrenheit);
 
-    function convertTemprature($inputFahrenheit)
-    {
-        $celcius = ($inputFahrenheit - 32) * (5 / 9);
-        return $celcius;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $inputFahrenheit = $_POST["fahrenheit"];
+        $celcius = convertTemprature($inputFahrenheit);
+
+        function convertTemprature($inputFahrenheit)
+        {
+            $celcius = ($inputFahrenheit - 32) * (5 / 9);
+            return $celcius;
+        }
+
+        echo "<p>The converted value is " . $celcius . "°C.</p>";
+
+        $inputKmh = $_POST["kmh"];
+        $speed = convertSpeed($inputKmh);
+
+        function convertSpeed($inputKmh)
+        {
+            $speed = ($inputKmh * 5 / 18);
+            return $speed;
+        }
+
+        echo "<p>The converted value is " . $speed . "m/s.</p>";
+
+        $inputKg = $_POST["kg"];
+        $gram = convertMass($inputKg);
+
+        function convertMass($inputKg)
+        {
+            $gram = ($inputKg * 1000);
+            return $gram;
+        }
+
+        echo "<p>The converted value is: " . $gram .  "g.</p>";
     }
-
-    echo "The converted value is: $celcius °C.";
-
-    $inputKmh = $_POST["kmh"];
-    $mps = convertSpeed($inputKmh);
-
-    function convertSpeed($inputKmh)
-    {
-        $mps = ($inputKmh * 5 / 18);
-        return $mps;
-    }
-
-    echo "The converted value is: $mps m/s.";
-
     ?>
 
 </div>
